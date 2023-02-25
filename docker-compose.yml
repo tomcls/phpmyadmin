@@ -1,0 +1,18 @@
+version: '3'
+services:
+    phpmyadmin:
+        image: phpmyadmin
+        ports:
+            - '84:80'
+        volumes:
+            - ./config.inc.php:/etc/phpmyadmin/config.inc.php
+        external_links:
+            - maria
+        networks:
+            - dev-network
+networks: # first, create a docker network to be able to external_links other container with their service name: docker network create -d bridge dev-network
+    dev-network:
+        external: true
+volumes:
+    volume-mariadb:
+        driver: local
